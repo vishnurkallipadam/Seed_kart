@@ -1,0 +1,32 @@
+<section>
+  <div class="row" style="padding-top: 2cm; padding-left: 1cm;">
+    <h1>ADD ADVERTISMENT</h1>
+    <form class="row g-3" name="add_ads" action="/seller/advertisment" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+      <div class="col-md-8">
+        <label for="inputTitle" class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Enter title">
+      </div>
+      <div class="col-md-8">
+        <label for="inputContent" class="form-label">Content</label>
+        <textarea class="form-control" name="content" id="desc" rows="5" placeholder="Write the Content"></textarea>
+      </div>
+      <div class="col-md-8">
+        <label for="formFileMultiple" class="form-label">Upload Images</label>
+        <input class="form-control" name="image" accept="" type="file" id="formFileMultiple">
+      </div>
+      <div class="col-12">
+        <button type="submit"  class="btn btn-primary">POST</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  function validateForm() {
+  var x = document.forms["add_ads"]["title"].value;
+  if (x == "") {
+    alert("Empty Fields in forms");
+    return false;
+  }
+}
+</script>

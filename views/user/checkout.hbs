@@ -1,0 +1,186 @@
+  <div class="container">
+  <div class="py-5 text-center">
+    
+    <h2>CHECKOUT</h2>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 order-md-2 mb-4">
+
+     
+
+      
+    </div>
+
+
+    <div class="col-md-8 order-md-1">
+      <h4 class="mb-3">Billing address</h4>
+      <form class="" action="" id="checkoutform">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName">Full Name</label>
+            <input type="hidden" name="userid" value="{{user._id}}">
+            <input type="text" class="form-control" id="firstName" placeholder="Full name" name="name" value="" required>
+            <div class="invalid-feedback">
+              Valid Full name is required.
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="number">Phone number</label>
+          <input type="tel" class="form-control" id="number" placeholder="Phone number" name="phoneno" required>
+          <div class="invalid-feedback">
+            Please enter your phone number.
+          </div>
+        </div>
+
+  
+
+        <div class="mb-3">
+          <label for="email">Email <span class="text-muted">(Optional)</span></label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
+          <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address">Address</label>
+          <input type="text" class="form-control" id="address" name="address" placeholder="Address" required>
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+        </div>
+
+       
+
+        <div class="row">
+          <div class="col-md-5 mb-3">
+            <label for="country">Country</label>
+            <select class="custom-select d-block w-100" id="country" name="country" required>
+              <option value="">Choose...</option>
+              <option value="India">India</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid country.
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="state">State</label>
+            <select class="custom-select d-block w-100" id="state" name="state" required>
+              <option value="">Choose...</option>
+              <option value="Kerala" >Kerala</option>
+            </select>
+            <div class="invalid-feedback">
+              Please provide a valid state.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="pin">Pin</label>
+            <input type="text" class="form-control" id="Pin" placeholder="Pin code" name="pin" required>
+            <div class="invalid-feedback">
+              Pin code required.
+            </div>
+          </div>
+                  <h4 class="mb-3">Payment Method</h4>
+
+        <div class="d-block my-3">
+          <div class="custom-control custom-radio">
+            <input id="credit" name="paymentMethod" value="online_payment" type="radio" class="custom-control-input"  required>
+            <label class="custom-control-label" for="credit">Online Payment</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input id="debit" name="paymentMethod" value="cash_on_delivery" type="radio" class="custom-control-input" checked required>
+            <label class="custom-control-label" for="debit">Cash On Delivery</label>
+          </div>
+        </div>
+        
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+      </form>
+        </div>
+        <hr class="mb-4">
+        {{!-- <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="save-info">
+          <label class="custom-control-label" for="save-info">Save this information for next time</label>
+        </div> --}}
+        
+
+
+    </div>
+  </div>
+
+
+</div>
+
+<script>
+$('#checkoutform').submit((e)=>{
+  e.preventDefault()
+  $.ajax({
+    url:'/checkout',
+    method:'POST',
+    data:$('#checkoutform').serialize(),
+    success:(response)=>{
+      if(response.successMsg){
+        alert('Order Placed Successfully')
+        window.location.href='/'
+      }else{
+        alert('Proceed to Online Payment')
+        startRazorpay(response)
+      }
+      
+
+    }
+
+  })
+
+})
+function startRazorpay(order){
+  var options = {
+    "key": "rzp_test_ZGATXfSKdjDjl0", // Enter the Key ID generated from the Dashboard
+    "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Seed Kart",
+    "description": "Test Transaction",
+    "image": "https://cdn.razorpay.com/logos/HLj36vcYsHgELn_original.jpg",
+    "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        verifyPayment(order,response)
+
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+    },
+    "notes": {
+        "address": "Seedkart"
+    },
+    "theme": {
+        "color": "#000000"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.open();
+
+}
+function verifyPayment(order,payment){
+  $.ajax({
+    url:'/verify_payment',
+    data:{
+      payment,order
+    },
+    method:'post',
+    success:(response)=>{
+      if(response.status){
+      alert('payment success')
+      
+      window.location.href='/orders'
+      }else{
+        alert('payment failed')
+      }
+    }
+  })
+}
+
+</script>

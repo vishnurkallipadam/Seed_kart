@@ -1,0 +1,179 @@
+<div class="container mt-5">
+  <div class="row">
+    {{#if empty}}
+    <h1>Cart is empty</h1>
+  </div>
+  {{else}}
+<table class="table">
+  <thead>
+    <tr class="table-danger">
+      <th scope="col">Name of Product</th>
+      <th scope="col">Image</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each product}}
+      
+    <tr>
+      <th  data-label="Name of Product" scope="row">{{this.product.productname}}</th>
+      <td  data-label="Image"><img src="/product_images/{{this.product._id}}.jpg" style="height: 100px; width: 100px;" alt=""></td>
+      <td data-label="Price">{{this.product.sellingprice}}</td>
+      <td data-label="Quantity"><button class="btn btn-danger" onclick="updateCount('{{this._id}}','{{this.product._id}}',-1,'{{../user._id}}')">-</button> <span id="{{this.product._id}}">{{this.count}}</span>   <button class="btn btn-success" onclick="updateCount('{{this._id}}','{{this.product._id}}',1,'{{../user._id}}')">+</button></td>
+      <td data-label="Total">{{this.netamount}}</td>
+      <td><button class="btn btn-danger" onclick="removeProduct('{{this._id}}','{{this.product._id}}')">Remove</button></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<div class="fixed-bottom col-md-7 offset-md-7" style="background-color: white;">
+<h1>Total Price: <span id="total"> {{total}} </span></h1>
+
+<a class="btn btn-outline-primary" href="/checkout">BUY NOW</a>
+
+</div>
+
+</div>
+{{/if}}
+<style>
+  <style>
+    body {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.25;
+}
+
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+</style>
+</style>
+
+<script>
+  function updateCount(cartid,productid,count,userid){
+    let quantity=parseInt(document.getElementById(productid).innerHTML)
+    count=parseInt(count)
+    console.log(cartid)
+    $.ajax({
+      url:'/update_product_count',
+      data:{
+        cartid:cartid,
+        productid:productid,
+        count:count,
+        quantity:quantity,
+        userid:userid
+      },
+      method:'POST',
+      success:(response)=>{
+        if(response.success){
+          document.getElementById(productid).innerHTML=quantity+count
+          document.getElementById('total').innerHTML=response.total
+        }else{
+          alert('PRODUCT REMOVED FROM CART')
+          location.reload()
+        }
+      
+
+
+      }
+    })
+  }
+
+  function removeProduct(cartid,productid){
+    console.log(cartid)
+    $.ajax({
+      url:'/remove_product_from_cart',
+      data:{
+        cartid:cartid,
+        productid:productid
+      },
+      method:'POST',
+      success:(response)=>{
+        alert('PRODUCT REMOVED FROM CART')
+        location.reload()
+
+      }
+
+    })
+  }
+  
+</script>

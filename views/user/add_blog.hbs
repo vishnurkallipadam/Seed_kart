@@ -1,0 +1,23 @@
+<section>
+  <div class="row" style="padding-top: 1cm; padding-left: 1cm;">
+    <form class="row g-3" action="/submitblog" method="POST" enctype="multipart/form-data">
+      <div class="col-md-8">
+        <label for="inputTitle" class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Enter title">
+        <input type="hidden" name="userid" value="{{user._id}}">
+      </div>
+      <div class="col-md-8">
+        <label for="inputContent" class="form-label">Content</label>
+        <textarea class="form-control" name="content" id="desc" rows="5" placeholder="Write the blog"></textarea>
+
+      </div>
+      <div class="col-md-8">
+        <label for="formFileMultiple" class="form-label">Upload Images</label>
+        <input class="form-control" name="image" type="file" id="formFileMultiple">
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">POST</button>
+      </div>
+    </form>
+  </div>
+</section>

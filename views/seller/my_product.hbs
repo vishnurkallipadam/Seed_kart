@@ -1,0 +1,68 @@
+
+<div>
+<div class="container mt-5 table-responsive">
+  <h1>My Products</h1>
+<table class="table align-middle table-hover">
+  <thead>
+    <tr class="table-info
+    ">
+      <th scope="col">Product Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Description</th>
+      <th scope="col">Selling Price</th>
+      <th scope="col">Status</th>
+       <th scope="col">Quantity Left</th>
+      
+      <th scope="col">Product Image</th>
+
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each products}}
+    <tr class="table-light">
+    
+      <th scope="row">{{this.productname}}</th>
+      <td>{{this.category}}</td>
+      <td>{{this.description}}</td>
+      <td>{{this.sellingprice}}</td>
+      <td>{{this.status}}</td>
+      <td>{{this.quantity}}</td>
+
+      <td><img src="/product_images/{{this._id}}.jpg" style="height: 100px; width: 100px;" alt=""></td>
+      <td> <a  href="/seller/editproduct/{{this._id}}" class="btn btn-info" onclick="return confirm('are you sure you want to edit product??')">Edit</a><a href="/seller/removeproduct/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove {{this.productname}}')">Remove</a></td>
+      
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
+<div class="container mt-5 table-responsive">
+  <h1>My Advertisements</h1>
+<table class="table align-middle table-hover">
+  <thead>
+    <tr class="table-info">
+      <th scope="col">Title</th>
+      <th scope="col">Content</th>
+      <th scope="col">Image</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    {{#each ads}}
+    <tr class="table-light">
+    
+      <th scope="row">{{this.title}}</th>
+      <td>{{this.content}}</td>
+      <td><img src="/ad_images/{{this._id}}.jpg" style="height: 100px; width: 100px;" alt=""></td>
+      <td><a href="/seller/remove_ads/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove this advertisement')">Remove</a></td>
+      
+    </tr>
+    {{/each}}
+  
+  </tbody>
+</table>
+</div>
+</div>

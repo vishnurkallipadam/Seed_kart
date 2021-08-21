@@ -1,0 +1,85 @@
+<div class="container" style="padding-top:2cm;">
+  <form action="/seller/add_product" method="POST" enctype="multipart/form-data">
+    <h2>ADD PRODUCT</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="first">Name of Product</label>
+          <input type="text" class="form-control" placeholder="Product Name" id="pname" name="productname">
+        </div>
+      </div>
+
+
+      <div class="col-md-6">
+        <div class="form-group dropdown">
+          <label for="last">Category</label>
+          <select class="form-select" id="validationCustom04" required name="category">
+            <option selected disabled value="" id="category">Choose Category</option>
+            <option value="grains">Grain</option>
+            <option value="seeds" >Seeds</option>
+            <option value="fertilisers">Fertilisers</option>
+            <option value="fruits">Fruits</option>
+            <option value="vegetable">Vegetable</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid Category.
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <div class="row">
+      <div class="col-3 col-md-12">
+        <div class="form-group">
+          <label for="company">Description</label>
+          <div class="mb-3">
+            <textarea class="form-control" id="desc" rows="3"
+              placeholder="Description About the Product" name="description"></textarea>
+          </div>
+        </div>
+
+
+      </div>
+
+
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <label for="phone">MRP of Product</label>
+          <input type="number" class="form-control" id="mrp" placeholder="Enter MRP of product" name="mrp">
+        </div>
+      </div>
+
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <label for="phone">Selling Price of Product</label>
+          <input type="number" class="form-control" id="sellprice" placeholder="Enter the Selling price" name="sellingprice">
+        </div>
+      </div>
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <label for="phone">Quantity</label>
+          <input type="number" class="form-control" id="quantity" placeholder="Enter the Quantity" name="quantity">
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <label for="formFileMultiple" class="form-label">Upload Images</label>
+        <input class="form-control" type="file" id="formFileMultiple" name="image" accept="">
+      </div>
+    </div>
+    <div style="padding-top: 5px;">
+      <button type="submit" class="btn btn-primary" onclick="return confirm('Confirm to Add product ')">Add Product</button>
+      <button type="reset" class="btn btn-secondary">Reset</button>
+    </div>
+  </form>
+</div>

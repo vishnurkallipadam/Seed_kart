@@ -1,0 +1,60 @@
+<section>
+    <div class="container">
+
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  
+  <div class="carousel-inner">
+{{#each ads}}
+    <div class="carousel-item active">
+      <img src="/ad_images/{{this._id}}.jpg" class="d-block w-100" style="height: 500px;" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>{{this.title}}</h5>
+        <p>{{this.content}}</p>
+      </div>
+    </div>
+    
+     {{/each}}
+  </div>
+ 
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+</div>
+</section>
+
+
+<section style="padding: 10mm;">
+    <section>
+  <div class="container">
+    <div class="row">
+      {{#each products}}
+      <div class="col md-4">
+
+        <div class="card" style="width: 18rem;">
+          <img src="/product_images/{{this._id}}.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{this.productname}}</h5>
+            <p class="card-text">{{this.description}}</p>
+            <p class="card-text">selling price: &#8377;{{this.sellingprice}}</p>
+            <a href="/add_to_cart/{{this._id}}" class="btn btn-primary">Add To Cart</a>
+          </div>
+        </div>
+      </div>
+
+      {{/each}}
+    </div>
+  </div>
+</section>
+</section>

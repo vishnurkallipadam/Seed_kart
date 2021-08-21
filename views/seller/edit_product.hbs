@@ -1,0 +1,88 @@
+<div class="container" style="padding-top:2cm;">
+  <form action="/seller/edit_product/{{product._id}}" method="POST" enctype="multipart/form-data">
+    <h2>ADD PRODUCT</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="first">Name of Product</label>
+          <input type="text" class="form-control" value="{{product.productname}}" required id="pname" name="productname">
+       
+        </div>
+      </div>
+
+
+      <div class="col-md-6">
+        <div class="form-group dropdown">
+          <label for="last">Category</label>
+          <select class="form-select" id="validationCustom04" required name="category">
+            <option  value="{{product.category}}" id="category">{{product.category}}</option>
+            <option value="grains">Grain</option>
+            <option value="seeds" >Seeds</option>
+            <option value="fertilisers">Fertilisers</option>
+            <option value="fruits">Fruits</option>
+            <option value="vegetable">Vegetable</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid Category.
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <div class="row">
+      <div class="col-3 col-md-12">
+        <div class="form-group">
+          <label for="company">Description</label>
+          <div class="mb-3">
+            <textarea class="form-control" id="desc" rows="3"
+              required name="description">{{product.description}}</textarea>
+          </div>
+        </div>
+
+
+      </div>
+
+
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <label for="phone">MRP of Product</label>
+          <input type="number" required class="form-control" id="mrp"  name="mrp" value="{{product.mrp}}">
+        </div>
+      </div>
+
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <label for="phone">Selling Price of Product</label>
+          <input type="number" required class="form-control" id="sellprice" value="{{product.sellingprice}}" name="sellingprice">
+        </div>
+      </div>
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <label for="phone">Quantity</label>
+          <input type="number" required class="form-control" id="quantity" value="{{product.quantity}}" name="quantity">
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <label for="formFileMultiple" class="form-label">Upload Images</label>
+        <img src="/product_images/{{product._id}}.jpg" alt="" style="height: 200px; width: 200px; padding: 5px;">
+        <input class="form-control" type="file" id="formFileMultiple" name="image" accept="">
+      </div>
+    </div>
+    <div style="padding-top: 5px;">
+      <button type="submit" class="btn btn-primary" onclick="return confirm('Confirm to Update product ')">Update Product</button>
+     
+    </div>
+  </form>
+</div>
+
